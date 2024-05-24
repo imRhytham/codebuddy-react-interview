@@ -1,5 +1,8 @@
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
+import TextField from "../components/TextField";
+import Button from "../components/Button";
+import Stepper from "../components/Stepper";
 
 const Home = () => {
   return (
@@ -22,6 +25,9 @@ const Home = () => {
         Posts
         <Icon icon="mdi:arrow-right" className="ml-2" />
       </Link>
+      <TextField label="Hi" error="Wrong" />
+      <Button>Hi</Button>
+      <Stepper steps={["Step 1", "Step 2", "Step 3", "step 4"]} currentStep={2} />
     </div>
   );
 };
