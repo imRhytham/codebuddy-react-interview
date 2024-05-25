@@ -16,6 +16,7 @@ const TextField = ({
       {label && (
         <label htmlFor={name} className="inline-block font-bold text-gray-700">
           {label}
+          {required && <span className="text-red-500">*</span>}
         </label>
       )}
       <input

@@ -8,8 +8,8 @@ const ContactInfo = () => {
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, checked } = e.target;
+    setFormData({ ...formData, [name]: checked });
   };
 
   const handlePhoneChange = (phoneNumber) => {
@@ -71,7 +71,9 @@ const ContactInfo = () => {
       )}
       <div className="mt-4 flex justify-between">
         <Button onClick={handleBack}>Back</Button>
-        <Button onClick={handleFormSubmit}>Submit</Button>
+        <Button onClick={handleFormSubmit} disabled={Object.keys(errors).length > 0}>
+          Submit
+        </Button>
       </div>
     </div>
   );
