@@ -13,9 +13,11 @@ const TextField = ({
 }) => {
   return (
     <div>
-      <label htmlFor={name} className="mb-2 inline-block font-bold text-gray-700">
-        {label}
-      </label>
+      {label && (
+        <label htmlFor={name} className="inline-block font-bold text-gray-700">
+          {label}
+        </label>
+      )}
       <input
         type={type}
         id={name}

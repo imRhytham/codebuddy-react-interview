@@ -13,14 +13,14 @@ const Stepper = ({ steps, currentStep, onStepClick }) => {
           >
             <div
               className={`flex h-6 w-6 items-center justify-center rounded-full text-white transition-colors duration-300 ${
-                index <= currentStep ? "bg-blue-500" : "bg-gray-400"
+                index <= currentStep ? "bg-[#6A26EF]" : "bg-gray-400"
               }`}
             >
               {index < currentStep ? <Icon icon="ic:baseline-done-all" /> : <p>{index + 1}</p>}
             </div>
             <div
               className={`transition-colors duration-300 ${
-                index <= currentStep ? "text-blue-500" : "text-gray-400"
+                index <= currentStep ? "text-[#6A26EF]" : "text-gray-400"
               }`}
             >
               {step}
@@ -29,7 +29,7 @@ const Stepper = ({ steps, currentStep, onStepClick }) => {
           {index < steps.length - 1 && (
             <div className="relative z-0 mx-2 h-0.5 flex-grow bg-gray-300">
               <div
-                className="h-0.5 bg-blue-500 transition-all duration-300"
+                className="h-0.5 bg-[#6A26EF] transition-all duration-300"
                 style={{
                   width: index < currentStep ? "100%" : "0%",
                 }}

@@ -14,7 +14,8 @@ const Button = ({ children, onClick, disabled, ...props }) => {
 				shadow-md 
 				transition duration-150 
 				ease-in-out hover:bg-[#6A26EF] hover:shadow-lg 
-				focus:bg-[#6A26EF] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#6A26EF] active:shadow-lg"
+				focus:bg-[#6A26EF] focus:shadow-lg focus:outline-none focus:ring-0 active:bg-[#6A26EF] active:shadow-lg
+        disabled:cursor-not-allowed disabled:opacity-50"
         onClick={onClick}
         disabled={disabled}
         {...props}
