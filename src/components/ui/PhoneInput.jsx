@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
 import { PropTypes } from "prop-types";
 import TextField from "./TextField";
-import Button from "./Button";
 
 const countryCodes = [
   { code: "+1", name: "US" },
@@ -13,22 +11,10 @@ const PhoneInputWithCountryCode = ({
   countryCode,
   onPhoneNumberChange,
   onCountryCodeChange,
+  error,
 }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState(
-    countryCodes.find((country) => country.code === countryCode) || countryCodes[0],
-  );
-
-  useEffect(() => {
-    setSelectedCountry(
-      countryCodes.find((country) => country.code === countryCode) || countryCodes[0],
-    );
-  }, [countryCode]);
-
   const handleCountryChange = (country) => {
-    setSelectedCountry(country);
     onCountryCodeChange(country.code);
-    setIsDropdownOpen(false);
   };
 
   const handlePhoneNumberChange = (event) => {
@@ -39,26 +25,18 @@ const PhoneInputWithCountryCode = ({
     <div>
       <div className="flex  justify-center space-x-4">
         {/* Country Code Dropdown */}
-        <div className="relative">
-          <Button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-            {selectedCountry.name} {selectedCountry.code}
-          </Button>
-          {isDropdownOpen && (
-            <div
-              id="dropdown-phone"
-              className="absolute left-0 z-20  w-full divide-y divide-gray-200 rounded-lg border border-gray-300 bg-[#6A26EF] shadow-lg"
-            >
-              {countryCodes.map((country) => (
-                <button
-                  key={country.code}
-                  className="block w-full px-4 py-2 text-left text-sm text-white hover:opacity-50 "
-                  onClick={() => handleCountryChange(country)}
-                >
-                  {country.flag} {country.name} ({country.code})
-                </button>
-              ))}
-            </div>
-          )}
+        <div className="flex space-x-2">
+          <select
+            value={countryCode}
+            onChange={handleCountryChange}
+            className="rounded border bg-[#6A26EF] px-4 py-2 text-white outline-none "
+          >
+            {countryCodes.map((country) => (
+              <option key={country.code} value={country.code}>
+                {country.code} {country.name}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="flex-1">
           <TextField
@@ -67,9 +45,11 @@ const PhoneInputWithCountryCode = ({
             onChange={handlePhoneNumberChange}
             placeholder="Phone number"
             max={10}
+            error={error}
           />
         </div>
       </div>
+      {/* {error && <p className="text-xs text-red-500">{error}</p>} */}
     </div>
   );
 };
@@ -79,6 +59,7 @@ PhoneInputWithCountryCode.propTypes = {
   countryCode: PropTypes.string.isRequired,
   onPhoneNumberChange: PropTypes.func.isRequired,
   onCountryCodeChange: PropTypes.func.isRequired,
+  error: PropTypes.string,
 };
 
 export default PhoneInputWithCountryCode;

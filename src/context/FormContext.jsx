@@ -1,5 +1,7 @@
 import { createContext, useCallback, useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+// import { rest } from "msw";
 
 const FormContext = createContext(null);
 
@@ -12,11 +14,12 @@ const FormContextProvider = ({ children }) => {
     firstName: "",
     lastName: "",
     address: "",
-    countryCode: "",
+    countryCode: "+91",
     phoneNumber: "",
     acceptTermsAndCondition: false,
   });
   const [currentStep, setCurrentStep] = useState(0);
+  const navigate = useNavigate();
 
   const handleStepClick = useCallback(
     (stepIndex) => {
@@ -36,6 +39,27 @@ const FormContextProvider = ({ children }) => {
     setCurrentStep((prevStep) => prevStep - 1);
   }, []);
 
+  const handleSubmit = async () => {
+    const reqBody = { ...formData };
+    delete reqBody.acceptTermsAndCondition;
+    try {
+      const data = await fetch("https://codebuddy.review/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reqBody),
+      });
+      const res = await data.json();
+      if (res.message === "Success") {
+        navigate("/posts");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Something went wrong");
+    }
+  };
+
   return (
     <FormContext.Provider
       value={{
@@ -47,6 +71,7 @@ const FormContextProvider = ({ children }) => {
         handleNext,
         handleStepClick,
         steps,
+        handleSubmit,
       }}
     >
       {children}
